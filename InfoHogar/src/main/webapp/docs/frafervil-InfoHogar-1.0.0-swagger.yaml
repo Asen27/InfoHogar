@@ -1,0 +1,423 @@
+swagger: '2.0'
+info:
+  description: Esta es la API de InfoHogar, la cual permite realizar ciertas operaciones sobre los recursos que posee (Inmueble y Ciudad).
+  version: 1.0.0
+  title: API de InfoHogar
+  # put the contact info for your development or API team
+  contact:
+    email: poli.ferreras@gmail.com
+
+# all paths will be relative to the basePath specified
+# basePath: /v1
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: Desarrolladores y clientes
+  description: Operaciones disponibles para desarrolladores y clientes
+schemes:
+- https
+paths:
+  /inmuebles:
+    get:
+      tags:
+      - Inmueble
+      summary: Consultar inmuebles
+      operationId: consultarInmuebles
+      description: Muestra todos los inmuebles de la API.
+      produces:
+      - application/json
+      
+      responses:
+        200:
+          description: Se han encontrado los inmuebles correctamente.
+        404:
+          description: El recurso solicitado no ha sido encontrado.
+    post:
+      tags:
+      - Inmueble
+      summary: Añadir inmueble
+      operationId: añadirInmueble
+      description: Añadir un inmueble a la API.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: /inmuebles
+        description: Añade un nuevo inmueble con los datos que se pasan en el cuerpo de la petición en JSON (se genera automáticamente sin pasar ninguna id).
+          Si el nombre del inmueble no es válido, devuelve un "400 Bad Request".
+          Si se ha conseguido añadir, devuelve "201 Created" con la referencia a la URI y el contenido del inmueble.
+        schema:
+          $ref: '#/definitions/Inmueble'
+      responses:
+        201:
+          description: Inmueble creado.
+        400:
+          description: Entrada inválida, inmueble inválido.
+          
+    put:
+      tags:
+      - Inmueble
+      summary: Actualizar inmueble
+      operationId: actualizarInmueble
+      description: Actualizar un inmueble de la API.
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: /inmuebles
+        description: Actualiza el inmueble con los datos que se pasan en el cuerpo de la petición en JSON (se debe incluir el id del inmueble).
+          Si el inmueble no existe, devuelve un "404 Not Found".
+          Si se actualiza correctamente, devuelve "204 No Content".
+        schema:
+          $ref: '#/definitions/Inmueble'
+      responses:
+        204:
+          description: Inmueble actualizado.
+        404:
+          description: Inmueble inexistente.
+          
+
+  /inmuebles/{inmuebleId}:
+    get:
+      tags:
+      - Inmueble
+      summary: Consultar inmueble
+      operationId: consultarInmueble
+      description: Muestra el inmueble con id = inmuebleId de la API. Si no existe devuelve un "404 Not Found".
+      produces:
+      - application/json
+      
+      responses:
+        200:
+          description: Se ha encontrado el inmueble.
+        404:
+          description: El inmueble solicitado no ha sido encontrado.
+    delete:
+      tags:
+      - Inmueble
+      summary: Eliminar inmueble
+      operationId: eliminarInmueble
+      description: Eliminar el inmueble con id = inmuebleId de la API. Si no existe, devuelve un "404 Not Found". Si se elimina correctamente, devuelve "204 No Content".
+      
+      responses:
+        204:
+          description: Inmueble eliminado correctamente.
+        404:
+          description: Inmueble inexistente.
+    
+  /ciudades:
+    get:
+      tags:
+      - Ciudad
+      summary: Consultar ciudades
+      operationId: consultarCiudades
+      description: Muestra todas las ciudades de la API.
+      produces:
+      - application/json
+      
+      responses:
+        200:
+          description: Se han encontrado las ciudades correctamente.
+        404:
+          description: El recurso solicitado no ha sido encontrado.      
+     
+    post:
+      tags:
+      - Ciudad
+      summary: Añadir ciudad
+      operationId: añadirCiudad
+      description: Añadir una ciudad a la API.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: /inmuebles
+        description: Añade una nueva ciudad con los datos que se pasan en el cuerpo de la petición en JSON. Los inmuebles de la ciudad no se pueden incluir aquí, para hacerlo se debe usar la operación POST específica para añadir un inmueble a una ciudad (la cual está definida más adelante). Las listas de los inmuebles de las ciudades nuevas están inicialmente vacías al añadirse.
+          Si el nombre de la ciudad no es válido, devuelve un "400 Bad Request".
+          Si se ha conseguido añadir, devuelve "201 Created" con la referencia a la URI y el contenido de la ciudad.
+        schema:
+          $ref: '#/definitions/Ciudad'
+      responses:
+        201:
+          description: Ciudad creada.
+        400:
+          description: Entrada inválida, ciudad inválida.
+          
+    put:
+      tags:
+      - Ciudad
+      summary: Actualizar ciudad
+      operationId: actualizarCiudad
+      description: Actualizar una ciudad de la API.
+      consumes:
+      - application/json
+      parameters:
+      - in: body
+        name: /inmuebles
+        description: Actualiza la ciudad con los datos que se pasan en el cuerpo de la petición en JSON (se debe incluir el id de la ciudad).
+          Si la ciudad no existe, devuelve un "404 Not Found".
+          Si se intenta actualizar los inmuebles de la ciudad, devuelve un "400 Bad Request". Para ello se debe usar el recurso Inmueble definido anteriormente.
+          Si se actualiza correctamente, devuelve "204 No Content".
+        schema:
+          $ref: '#/definitions/Ciudad'
+      responses:
+        204:
+          description: Ciudad creada.
+        400:
+          description: No se pueden actualizar los inmuebles de la ciudad mediante este recurso.
+        404:
+          description: Ciudad inexistente.    
+          
+  /ciudades/{ciudadId}:   
+    get:
+      tags:
+      - Ciudad
+      summary: Consultar ciudad
+      operationId: consultarCiudad
+      description: Devuelve la ciudad con id = ciudadId. Si no existe, devuelve un "404 Not Found".
+      produces:
+      - application/json
+      
+      responses:
+        200:
+          description: Se ha encontrado la ciudad correctamente.
+        404:
+          description: La ciudad solicitada no ha sido encontrada.
+          
+    delete:
+      tags:
+      - Ciudad
+      summary: Eliminar ciudad
+      operationId: eliminarCiudad
+      description: Elimina la ciudad con id = ciudadId de la API. Si no existe, devuelve un "404 Not Found". Si se elimina correctamente, devuelve "204 No Content".
+      
+      responses:
+        204:
+          description: Ciudad eliminada correctamente.
+        404:
+          description: Ciudad inexistente. 
+          
+  /ciudades/{ciudadId}/{inmuebleId}:  
+    post:
+      tags:
+      - Ciudad
+      summary: Añadir inmueble a ciudad
+      operationId: añadirInmuebleACiudad
+      description: Añadir un inmueble a una ciudad de la API.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: /{ciudadId}/{inmuebleId}
+        description: Añade el inmueble con id = inmuebleId a la ciudad con id = ciudadId.
+          Si la ciudad o el inmueble no existe, devuelve un "404 Not Found".
+          Si el inmueble ya está incluido en la ciudad devuelve un "400 Bad Request".
+          Si se ha conseguido añadir, devuelve "201 Created" con la referencia a la URI y el contenido de la ciudad.
+        schema:
+          $ref: '#/definitions/Ciudad'
+      responses:
+        201:
+          description: Ciudad creada.
+        400:
+          description: Entrada inválida, inmueble ya incluido en la ciudad.
+        404:
+          description: Ciudad o inmueble inexistentes.
+          
+    delete:
+      tags:
+      - Ciudad
+      summary: Eliminar inmueble de ciudad
+      operationId: eliminarInmuebleDeCiudad
+      description: Elimina el inmueble con id = inmuebleId de la ciudad con id = ciudadId. Si la ciudad o el inmueble no existe, devuelve un "404 Not Found". Si se elimina correctamente, devuelve "204 No Content".
+      
+      responses:
+        204:
+          description: Inmueble eliminado correctamente.
+        404:
+          description: Ciudad o inmueble inexistentes.      
+          
+definitions:
+  Inmueble:
+    required:
+    - id
+    - precio
+    - distancia
+    - operacion
+    properties:
+      id:
+        type: string
+        example: I1
+      precio:
+        type: integer
+        example: 210000
+      distancia:
+        type: integer
+        example:  100
+      operacion:
+        type: string
+        example: VENTA
+        
+  Ciudad:
+    required:
+    - capital
+    - nombre
+    - inmuebles
+    - viviendas
+    - oficinas
+    - garajes
+    - locales
+    - habitaciones
+    properties:
+      capital:
+        type: string
+        example: Sevilla
+      nombre:
+        type: string
+        example: Bormujos  
+      inmuebles:
+        type: array
+        items:
+          $ref: '#/definitions/Inmueble'
+      viviendas:
+        type: array
+        items:
+          $ref: '#/definitions/Vivienda'
+      oficinas:
+        type: array
+        items:
+          $ref: '#/definitions/Oficina'
+      garajes:
+        type: array
+        items:
+          $ref: '#/definitions/Garaje'
+      locales:
+        type: array
+        items:
+          $ref: '#/definitions/Local'
+      habitaciones:
+        type: array
+        items:
+          $ref: '#/definitions/Habitacion'    
+ 
+  Vivienda:
+    required:
+    - tamaño
+    - baños
+    - habitaciones
+    - duplex
+    - garaje
+    - ascensor
+    properties:
+      tamaño:
+        type: integer
+        example: 50
+      baños:
+        type: integer
+        example: 2
+      habitaciones:
+        type: integer
+        example: 4
+      duplex:
+        type: boolean
+        example: true
+      garaje:
+        type: boolean
+        example: true
+      ascensor:
+        type: boolean
+        example: false  
+        
+  Oficina:
+    required:
+    - seguridad
+    - garaje
+    - ascensor
+    - diseño
+    - tipo
+    properties:
+      seguridad:
+        type: boolean
+        example: true
+      garaje:
+        type: boolean
+        example: false
+      ascensor:
+        type: boolean
+        example: true
+      diseño:
+        type: string
+        example: ABIERTO
+      tipo:
+        type: string
+        example: MIXTO
+        
+  Garaje:
+    required:
+    - pAutomatica
+    - parkingMotos
+    - seguridad
+    properties:
+      pAutomatica:
+        type: boolean
+        example: true
+      parkingMotos:
+        type: boolean
+        example: true
+      seguridad:
+        type: boolean
+        example: true
+        
+  Local:
+    required:
+    - ventilado
+    - tamaño
+    - localizacion
+    - tipo
+    properties:
+      ventilado:
+        type: boolean
+        example: false
+      tamaño:
+        type: integer
+        example: 30
+      localizacion:
+        type: string
+        example: CALLE
+      tipo:
+        type: string
+        example: LOCAL
+        
+  Habitacion:
+    required:
+    - compañeros
+    - fumadores
+    - mascotas
+    - sexo
+    properties:
+      compañeros:
+        type: integer
+        example: 2
+      fumadores:
+        type: boolean
+        example: false
+      mascotas:
+        type: boolean
+        example: true
+      sexo:
+        type: string
+        example: MUJER
+      
+        
+# host: infohogar-162116.appspot.com
+# basePath: /api
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /frafervil/InfoHogar/1.0.0

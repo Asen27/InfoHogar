@@ -1,0 +1,106 @@
+body {
+
+    margin: auto;
+    background-color: #f1c232;	
+    
+}
+
+
+#titulo{
+background-color: #ff9900;
+border: 2px solid green;
+text-align: center;
+font-family: "Times New Roman", Times, serif;
+font-size: 100%;
+
+}
+header{
+background-color: #F7F7F7;
+     vertical-align: middle;
+       width:100%;
+     
+}
+
+button {
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    position: absolute;
+	left: 50%;
+   margin-left: -4%;
+    margin-bottom: 5%;
+    margin-top: 5px;
+   
+	
+}
+
+th {
+	width: 40%;	
+	background-color: #4CAF50;
+    color: white;
+     border: 5px solid black;
+    
+	}
+
+tr{
+	border: 2px solid black;
+	background-color: lightblue;
+ text-align: center;
+  
+}
+img{
+	max-width: 20%;
+	min-width: 128px;
+	height:auto;
+	min-height: 97px;
+	position: relative;
+	left: 50%;
+   margin-left: -10%;
+    align-item: center;
+
+
+}
+
+table{
+      background-color: #f1c232;
+      display: table;
+        align-content: center;
+        align-item: center;
+
+}
+main{
+font-weight: bold;	
+margin-left: 1%;
+
+}
+footer {
+
+border-top: 1px solid gray;
+font-size: 75%;  
+text-align: left;
+text-decoration: underline;
+  text-transform: capitalize;
+  	margin-top: 8%;
+  	margin-left: 1%;
+}
+
+#paginaInicial {
+	text-align: center;
+}
+  	
+#fondocolor{
+background-color: #f1c232;	
+}
+
+#tablaResultados {
+    border: 0px;
+    border-collapse: collapse;
+    width:100%
+}
+
+tr.resultados {
+	width:50%
+}
+

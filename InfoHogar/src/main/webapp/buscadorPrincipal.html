@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Buscador Principal</title>
+</head>
+
+
+
+<body>
+	<form id="formulario1" action="controladorBuscadorPrincipal" method="post">
+
+		<p>
+			 <strong> Todos los campos que aparecen en esta página son obligatorios </strong>
+		</p>
+
+		<div>
+			<label for="direccion"> Dirección:
+			</label> <input type="text" id="direccion" name="direccion"
+				placeholder="ej: Sevilla, Reina Mercedes" size="50" required
+				title="Introduzca una dirección en este campo.">
+		</div>
+ 
+		<div>
+			<label title="Elija sólo una opción."> ¿Qué busca?  </label> 
+			<label> <input type="radio" id="opcion1" name="tipoAnuncio"
+				value="homes" checked> Viviendas
+			</label> <label> <input type="radio" id="opcion2" name="tipoAnuncio"
+				value="bedrooms"> Habitaciones
+			</label> <label> <input type="radio" id="opcion3" name="tipoAnuncio"
+				value="offices"> Oficinas
+			</label> <label> <input type="radio" id="opcion4" name="tipoAnuncio"
+				value="garages"> Garajes
+			</label> <label> <input type="radio" id="opcion5" name="tipoAnuncio"
+				value="premises"> Locales
+			</label>
+		</div>
+
+
+<div>
+			<label title="Elija sólo una opción"> Especifique su búsqueda:  </label> 
+			<label> <input type="radio" id="busqueda1" name="busqueda"
+				value="sale" checked> Compra
+			</label> <label> <input type="radio" id="busqueda2" name="busqueda"
+				value="rent"> Alquiler
+			</label> 
+		</div>
+
+        <input type="submit" name="continuar" title="Pulse el botón para continuar." value="Continuar">
+
+  
+	</form>
+
+
+
+
+
+
+
+</body>
+</html>
